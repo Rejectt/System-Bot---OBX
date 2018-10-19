@@ -1,12 +1,12 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const prefix = "r!"
+const prefix = "R!"
 
-console.log(`Ready !`)
+console.log(`hello`)
 
 
 client.on('ready', () => {                           
-client.user.setGame(`🌈Rainbow - r!help`);                                                                                                                                                                                                                                                                                                                                                                                                                            
+client.user.setGame(`🌈RAINBOW|R!help | R!invite`);                                                                                                                                                                                                                                                                                                                                                                                                                            
 });
 
    client.on('message', message => {
@@ -26,16 +26,19 @@ client.user.setGame(`🌈Rainbow - r!help`);
 
 
    client.on("message", message => {
- if (message.content === "r!help") {
-     message.channel.send('**:white_check_mark: , تم ارسال رسالة في الخاص** :mailbox_with_mail: ');
+ if (message.content === "R!help") {
+     message.channel.send('**:mailbox_with_mail: تم ارسال رسالة في الخاص** :mailbox_with_mail: ');
   const embed = new Discord.RichEmbed()
       .setColor("RANDOM")
-      .setDescription(`**   
+      .setDescription(`
+             
 =====================🌈 RainbowBot. 🌈=====================
-R!set = Rainbow Start & Create Rainbow Role
+R!set = لبدا وانشاء رتبه الرينبو | Rainbow Start & Create Rainbow Role
+R!invite = لاضافه البوت | Bot Invite
+**!ملاحظه: اذا ما شتغل البوت جرب تحط رتبه البوت اعلى من رتبه الرينبو ** 
 **NOTE: If the bot is working, try to drop the bot role higher than the Rainbow role !**
 =====================🌈 RainbowBot. 🌈=====================
-**`)
+`)
    message.author.sendEmbed(embed)
    
    }
@@ -73,5 +76,8 @@ console.log('Welcome')
     })
 }})
   }})
+  
+ 
 
-client.login(process.env.BOT_TOKEN);
+
+client.login(process.env.BOT_TOKEN)
