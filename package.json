@@ -1,6 +1,6 @@
 {
-  "name": "Rainbow Bot",
-  "description": "Rainbow",
+  "name": "Bot",
+  "description": "bot",
   "version": "0.0.0",
   "main": "bot.js",
   "scripts": {
