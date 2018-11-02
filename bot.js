@@ -379,32 +379,6 @@ client.on('message', message => {
 
   let args = message.content.split(" ").slice(1);
 
-  if (command == "kick") {
-               if(!message.channel.guild) return message.reply('**:x: , This command only for servers**');
-         
-  if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("**:x: , ليس لديك صلاحيات لأعطائ طرد**");
-  if(!message.guild.member(client.user).hasPermission("KICK_MEMBERS")) return message.reply("**:x: , البوت لأيملك صلاحيات لأعطاء طرد**");
-  let user = message.mentions.users.first();
-  let reason = message.content.split(" ").slice(2).join(" ");
-  if (message.mentions.users.size < 1) return message.reply("**منشن الشخص الذي تريد طرده من سيرفر**");
-  if(!reason) return message.reply ("**اكتب سبب الطرد**");
-  if (!message.guild.member(user)
-  .kickable) return message.reply("**لايمكنني طرد عضو أعلى من رتبتي**");
-
-  message.guild.member(user).kick();
-  message.channel.sendMessage("**:dove: , تم طرد العضو من السيرفر**");
-  }
-}
-
-client.on('message', message => {
-  if (message.author.x5bz) return;
-  if (!message.content.startsWith(prefix)) return;
-
-  let command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
-
-  let args = message.content.split(" ").slice(1);
-
   if (command == "ban") {
                if(!message.channel.guild) return message.reply('**:x: , This command only for servers**');
          
