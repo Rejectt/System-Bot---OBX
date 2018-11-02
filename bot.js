@@ -394,7 +394,7 @@ client.on('message', message => {
   message.guild.member(user).kick();
   message.channel.sendMessage("**:dove: , تم طرد العضو من السيرفر**");
   }
-});
+}
 
 client.on('message', message => {
   if (message.author.x5bz) return;
