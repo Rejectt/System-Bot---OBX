@@ -13,9 +13,7 @@ client.on("message", message => {
  if (message.content === "!help") {
   const embed = new Discord.RichEmbed()  
       .setColor("RANDOM") 
-      .setDescription(`**
-                    OBX System Bot
-Administration Commands :**
+      .setDescription(`OBX System Bot | Help Menu :
 
 `${prefix}ban` ⇏ خاصية الباند
 `${prefix}bc` ⇏ خاصية البرودكاست
