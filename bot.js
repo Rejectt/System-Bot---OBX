@@ -14,23 +14,22 @@ client.on("message", message => {
   const embed = new Discord.RichEmbed()  
       .setColor("RANDOM") 
       .setDescription(`OBX System Bot | Help Menu :
+${prefix}ban ⇏ خاصية الباند
+${prefix}bc ⇏ خاصية البرودكاست
 
-`${prefix}ban` ⇏ خاصية الباند
-`${prefix}bc` ⇏ خاصية البرودكاست
+${prefix}kick ⇏ خاصية الطرد
+${prefix}clear ⇏ خاصية مسح الشات
+${prefix}bans ⇏ لمعرفة عدد المحظورين من سيرفر
+${prefix}mute ⇏ لاعطاء شخص ميوت
+${prefix}ping ⇏ لمعرفة سرعة البوت
+${prefix}bot ⇏ لمعرفة معلومات البوت
 
-`${prefix}kick` ⇏ خاصية الطرد
-`${prefix}clear` ⇏ خاصية مسح الشات
-`${prefix}bans` ⇏ لمعرفة عدد المحظورين من سيرفر
-`${prefix}mute` ⇏ لاعطاء شخص ميوت
-`${prefix}ping` ⇏ لمعرفة سرعة البوت
-`${prefix}bot` ⇏ لمعرفة معلومات البوت
+${prefix}server ⇏ لمعرفة معلومات السيرفر
+${prefix}roles ⇏ لعرض كل رتب السيرفر
 
-`${prefix}server` ⇏ لمعرفة معلومات السيرفر
-`${prefix}roles` ⇏ لعرض كل رتب السيرفر
-
-`${prefix}rules` ⇏ القوانين
-`${prefix}id` ⇏ لمعرفة ايدي الديسكورد الخاص بك
-`${prefix}warn` ⇏ لتحذير شخص ما
+${prefix}rules ⇏ القوانين
+${prefix}id ⇏ لمعرفة ايدي الديسكورد الخاص بك
+${prefix}warn ⇏ لتحذير شخص ما
       `)
    message.channel.sendEmbed(embed)
     
