@@ -14,19 +14,16 @@ client.on("message", message => {
   const embed = new Discord.RichEmbed()  
       .setColor("RANDOM") 
       .setDescription(`OBX System Bot | Help Menu :
+
 ${prefix}ban ⇏ خاصية الباند
 ${prefix}bc ⇏ خاصية البرودكاست
-
 ${prefix}kick ⇏ خاصية الطرد
 ${prefix}clear ⇏ خاصية مسح الشات
 ${prefix}bans ⇏ لمعرفة عدد المحظورين من سيرفر
 ${prefix}mute ⇏ لاعطاء شخص ميوت
 ${prefix}ping ⇏ لمعرفة سرعة البوت
-${prefix}bot ⇏ لمعرفة معلومات البوت
-
 ${prefix}server ⇏ لمعرفة معلومات السيرفر
 ${prefix}roles ⇏ لعرض كل رتب السيرفر
-
 ${prefix}rules ⇏ القوانين
 ${prefix}id ⇏ لمعرفة ايدي الديسكورد الخاص بك
 ${prefix}warn ⇏ لتحذير شخص ما
@@ -34,28 +31,14 @@ ${prefix}warn ⇏ لتحذير شخص ما
    message.channel.sendEmbed(embed)
     
    }
-   }); 
-
-
-   
-   
-   client.on('message', message => {
-	       var prefix = "!";
-            if (message.content.startsWith(prefix + "bot")) {
-     let embed = new Discord.RichEmbed()
-.setThumbnail(message.author.avatarURL)
-.addField('Ping : ',`[${Date.now() - message.createdTimestamp}]`) 
-.setColor('#7d2dbe')
-  message.channel.sendEmbed(embed);
-    }
-});
+   });
 
 client.on('message', message => {
     if (message.content === '!roles') {
         var roles = message.guild.roles.map(roles => `${roles.name}, `).join(' ')
         const embed = new Discord.RichEmbed()
         .setColor('RANDOM')
-        .addField('Roles :',`**[${roles}]**`)
+        .addField('Roles :',`**[ ${roles} ]**`)
         message.channel.sendEmbed(embed);
     }
 });
@@ -110,7 +93,7 @@ client.on('message', message => {
 const moment = require('moment');
 
 client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find("name","welcome");
+let welcomer = member.guild.channels.find("name","chat");
       if(!welcomer) return;
       if(welcomer) {
          moment.locale('ar-ly');
@@ -128,38 +111,32 @@ let welcomer = member.guild.channels.find("name","welcome");
       }
       });
 
-client.on('message', message =>{
-    if(message.author.bot) return;
-    if(!message.content == ('!clear'))
-if(!true) return;
-    if(message.content.split(' ')[0] == ('!clear')){
-    var lmt = message.content.split(' ')[1]
-    ,  hang = 0
-    ,  max  = 0;
-    
-    if(!lmt) lmt = 200;
-    if(typeof lmt !== 'number') return;
-    if(lmt > 100){
-        for(;lmt > 100;){
-        lmt--;
-        hang++;
-        }
-        }
-     message.channel.fetchMessages({limite:lmt}).then(msgs=>{
-     msgs.channel.bulkDelete(msgs);
-     });
-     if(hang > 100){
-         hang = 100;
-     }
-        message.channel.fetchMessages({limite:hang}).then(msgs=>{
-        message.channel.bulkDelete(msgs);
-     });
-     
-    max= hang+lmt;
-    message.reply(`**${max} : عدد الرسائل الي تم حذفها**`).catch(()=>{
-        message.reply(` **ليس لديك صلآحيات**.`)
-    });
-    }
+client.on('message', message => {
+     if(message.content.startsWith("!clear")) {
+         var args = message.content.split(" ").slice(1);
+ if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**:x: , انت لأتملك صلاحيات لحذف الرسائل**');
+  if (!args[0]) return message.channel.send('**:x: | أكتب عدد الرسائل المراد حذفها !**');
+
+  message.channel.bulkDelete(args[0]).then(() => {
+    const embed = new Discord.RichEmbed()
+      .setColor(0xF16104)
+      .setDescription(`[ \`\`${args[0]}\`\` ] : عدد الرسائل التي تم حذفها`);
+    message.channel.send({ embed }).then(m => m.delete(2000));
+
+    const actionlog = message.guild.channels.find('name', 'logs...');
+
+    if (!actionlog) return console.log('Can\'t find action-log channel. Are you sure that this channel exists and I have permission to view it? **CANNOT POST LOG.**');
+    const embedlog = new Discord.RichEmbed()
+      .setDescription('Purge')
+      .setColor('RANDOM')
+      .addField('Purged By :', `<@${message.author.id}> with ID ${message.author.id}`)
+      .addField('Purged in :', message.channel)
+      .addField('Time :', message.createdAt);
+    actionlog.send(embedlog);
+   
+  });
+};
+
 });
 
 
@@ -229,10 +206,8 @@ client.on('message', (message)=>{
         if (message.content.startsWith(`!embed`)) {
                 var embed = new Discord.RichEmbed()
                 .setAuthor(client.user.username,client.user.avatarURL)
-                .setTitle("Message By " + message.author.tag)
                 .setDescription(message.content.split(" ").join(" ").slice(7))
                 .setColor("RANDOM")
-                .setThumbnail(message.author.avatarURL)
                 message.channel.send(embed);
         } else if (message.content.startsWith(`!say`)) {
                 message.channel.send(message.content.split(" ").join(" ").slice(5));
@@ -246,11 +221,8 @@ client.on('message', (message)=>{
           if (!msg.mentions.members.first()) return msg.reply('**منشن للشخص الذي تريد تحذيره**')
           if (!args[1]) return msg.reply('**الرجاء كتابة السبب**')
           if (msg.guild.channels.find('name', 'warns')) {
-            msg.guild.channels.find('name', 'warns').send(`
-          تم أعطائه تنبيه : ${msg.mentions.members.first()}
-          السبب :
-          ${args.join(" ").split(msg.mentions.members.first()).slice(' ')}
-          `)
+            msg.guild.channels.find('name', 'warns').send(`${msg.mentions.members.first()} : تم أعطائه تنبيه
+            ${args.join(" ").split(msg.mentions.members.first()).slice(' ')} : السبب`)
           }
         }
 })
@@ -259,10 +231,8 @@ client.on('message', (message)=>{
               if (!message.channel.guild) return;
       if(message.content =='!members')
       var IzRo = new Discord.RichEmbed()
-      .setThumbnail(message.author.avatarURL)
       .setFooter(message.author.username, message.author.avatarURL)
-      .setTitle(':tulip: | Members info')
-      .addBlankField(true)
+      .setTitle(':tulip: | Members Count')
       .addField(': عدد اعضاء السيرفر',`${message.guild.memberCount}`)
       message.channel.send(IzRo);
 
@@ -293,12 +263,11 @@ if (!message.content.startsWith(prefix)) return;
 		.addField("**العضو**",  '**[ ' + `${user.tag}` + ' ]**',true)
 		.addField("**: تم بواسطة**", '**[ ' + `${message.author.tag}` + ' ]**',true)
 		.addField("**: السبب**", '**[ ' + `${reason}` + ' ]**',true)
-		.addField("User", user, true)
 		message.channel.send({embed : muteembed});
 		var muteembeddm = new Discord.RichEmbed()
 		.setAuthor(`Muted!`, user.displayAvatarURL)
 		.setDescription(`      
-[ ${user} ] : انت معاقب بميوت كتابي بسبب مخالفة القوانين
+[ ${user} ] : انت معاقب بميوت كتابي
 [ ${message.author.tag} ] : تمت معاقبتك بواسطة
 [ ${reason} ] : السبب
 `)
@@ -326,18 +295,18 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return mess
 });
 
 client.on('message', message => {
-const adminprefix = "-";
+const adminprefix = "!";
 const devs = ['346045919072092161'];
     var command = message.content.split(" ")[0];
     if(command == adminprefix + 'bc') {
         var args = message.content.split(' ').slice(1).join(' ');
         if(message.author.bot) return;
-        if(!args) return message.channel.send(`**:x: | Please write something to sumbit broadcast to all members**`).then(msg => msg.delete(5000));
+        if(!args) return message.channel.send(`**:x: | الرجاء كتابة رسالة لأرسال البرودكاست**`).then(msg => msg.delete(5000));
        
         let bcSure = new Discord.RichEmbed()
-        .setTitle(`**عضو ؟ ( ** ${message.guild.memberCount} ** ) هل أنت متاكد من أرسال البرودكاست الى**`)
+        .setTitle(`**هل أنت متاكد من أرسال البرودكاست الى ( ** ${message.guild.memberCount} ** ) عضو**`)
         .setColor('RANDOM')
-        .setDescription(`**\n:envelope: | ➥ رسألتك : **\n\n${args}`)
+        .setDescription(`**\n➥ رسألتك : **\n\n${args}`)
         .setTimestamp()
         .setFooter(message.author.tag, message.author.avatarURL)
        
