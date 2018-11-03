@@ -370,32 +370,4 @@ const devs = ['346045919072092161'];
     }
 });
 
-client.on('message', message => {
-  if (message.author.x5bz) return;
-  if (!message.content.startsWith(prefix)) return;
-
-  let command = message.content.split(" ")[0];
-  command = command.slice(prefix.length);
-
-  let args = message.content.split(" ").slice(1);
-
-  if (command == "ban") {
-               if(!message.channel.guild) return message.reply('**:x: , This command only for servers**');
-         
-  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**:x: , ليس لديك صلاحيات لأعطاء حظر**");
-  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**:x: , البوت لأيملك صلاحيات لأعطاء حظر**");
-  let user = message.mentions.users.first();
-  let reason = message.content.split(" ").slice(2).join(" ");
-  /*let b5bzlog = client.channels.find("name", "5bz-log");
-  if(!b5bzlog) return message.reply("I've detected that this server doesn't have a 5bz-log text channel.");*/
-  if (message.mentions.users.size < 1) return message.reply("**منشن الشخص الذي تريد حظره من سيرفر**");
-  if(!reason) return message.reply ("**اكتب سبب الحظر**");
-  if (!message.guild.member(user)
-  .bannable) return message.reply("**لأيمكنني حظر عضو أعلى من رتبتي**");
-  message.guild.member(user).ban(7, user);
-  message.channel.sendMessage("**:airplane: , تم حظر العضو من السيرفر**");
-  })
-}
-});
-
 client.login(process.env.TOKEN);
